@@ -15,19 +15,19 @@ This is a misconception, and understanding *why* it is wrong will give you a muc
 
 ARC (Adaptive Replacement Cache) does **not** work with files. It works with **blocks**.
 
-A 50GB VM image is not stored as a single block. It is split across thousands of individual blocks on disk. ARC does not cache "the VM file" — it caches the individual **blocks** that are actually being accessed. Blocks that are read frequently become "hot" and stay in ARC. Blocks that are never touched never enter ARC at all.
+A 50GB VM image is not stored as a single block. It is split across thousands of individual blocks on disk. ARC does not cache "the VM file" - it caches the individual **blocks** that are actually being accessed. Blocks that are read frequently become "hot" and stay in ARC. Blocks that are never touched never enter ARC at all.
 
 ### The warehouse analogy
 
 Think of your storage pool as a warehouse:
 
-- The **physical shelves** represent `ashift` — the fundamental unit the physical drive understands
-- The **boxes on the shelves** represent blocks — the unit ZFS works with
+- The **physical shelves** represent `ashift` - the fundamental unit the physical drive understands
+- The **boxes on the shelves** represent blocks - the unit ZFS works with
 - The **items inside the boxes** represent the actual data
 
 When ARC fetches data, it carries out a box at a time. It does not carry out the entire warehouse just because you asked for one item.
 
-This is why disabling `primarycache` on a VM zvol is often counterproductive — you are throwing away the precise, selective block-level caching that is exactly what ARC is good at.
+This is why disabling `primarycache` on a VM zvol is often counterproductive - you are throwing away the precise, selective block-level caching that is exactly what ARC is good at.
 
 ---
 
@@ -35,7 +35,7 @@ This is why disabling `primarycache` on a VM zvol is often counterproductive —
 
 A regular ZFS dataset is a **filesystem**. ZFS understands files, directories, metadata, and how to split files into blocks (`recordsize`).
 
-A zvol is different. It is a **raw block device** — ZFS steps out of the filesystem role and instead presents a virtual drive. No files, no directories, no filesystem semantics. Just a long sequence of addressable blocks.
+A zvol is different. It is a **raw block device** - ZFS steps out of the filesystem role and instead presents a virtual drive. No files, no directories, no filesystem semantics. Just a long sequence of addressable blocks.
 
 This means:
 
@@ -43,7 +43,7 @@ This means:
 - The guest OS (your VM) builds its own filesystem (e.g. NTFS) inside it
 - ZFS just stores and retrieves raw blocks on behalf of the guest
 
-The zvol acts as a translation layer — a contract between two parties that do not know about each other:
+The zvol acts as a translation layer - a contract between two parties that do not know about each other:
 
 ```
 VM / Guest OS          ZFS / Physical disk
@@ -63,9 +63,9 @@ This is where zvols differ from regular datasets, and why the terminology change
 | Meaning | Largest block for a file record | Smallest addressable block unit |
 | Analogy | Box size for packing files | Sector size of a virtual drive |
 
-`recordsize` is a **filesystem concept** — it relates to how files are packed into blocks.
+`recordsize` is a **filesystem concept** - it relates to how files are packed into blocks.
 
-`volblocksize` is a **block device concept** — it defines the minimum unit ZFS reads and writes for this virtual drive, exactly like a physical sector size.
+`volblocksize` is a **block device concept** - it defines the minimum unit ZFS reads and writes for this virtual drive, exactly like a physical sector size.
 
 ---
 
@@ -97,17 +97,17 @@ Both are ways to give a VM a virtual drive, but they are fundamentally different
 
 ### virtio image file (e.g. qcow2):
 - Lives as a **file** inside the host filesystem (ext4, xfs, etc.)
-- VM writes blocks → host filesystem translates to its own blocks → physical disk
+- VM writes blocks -> host filesystem translates to its own blocks → physical disk
 - Two filesystems stacked on top of each other
-- The host filesystem has no idea it is handling disk I/O — it treats the image like any other file
+- The host filesystem has no idea it is handling disk I/O - it treats the image like any other file
 
 ### zvol:
 - ZFS **exits the filesystem role** entirely for this storage
-- VM writes blocks → ZFS handles them as raw blocks → physical disk
+- VM writes blocks -> ZFS handles them as raw blocks -> physical disk
 - No intermediate filesystem that misunderstands what is happening
 - ZFS retains all its strengths (CoW, compression, checksums, ARC) but hides them from the guest
 
-The zvol is a more **genuine** virtual drive — the guest gets real block-device semantics, while ZFS silently handles data integrity and caching underneath.
+The zvol is a more **genuine** virtual drive - the guest gets real block-device semantics, while ZFS silently handles data integrity and caching underneath.
 
 ---
 
@@ -121,9 +121,9 @@ The goal is to match `volblocksize` to the I/O pattern of the **guest OS**. Wind
 
 | volblocksize | ARC behaviour | Best for |
 |---|---|---|
-| Small (4K–8K) | Precise — only hot data is cached | Limited RAM, random I/O workloads |
+| Small (4K–8K) | Precise - only hot data is cached | Limited RAM, random I/O workloads |
 | Medium (16K–32K) | Balanced | General purpose VMs |
-| Large (64K–128K) | Coarse — neighbours of hot data also cached | Abundant RAM, sequential workloads |
+| Large (64K–128K) | Coarse - neighbours of hot data also cached | Abundant RAM, sequential workloads |
 
 ### RAM budget matters
 
@@ -169,7 +169,7 @@ With compressed ARC:      disk → ARC (compressed) → decompress on use
 
 This means the ARC can hold **more data for the same amount of RAM**:
 
-| Algorithm | Typical ratio | 40 GB ARC → Effective capacity |
+| Algorithm | Typical ratio | 40 GB ARC -> Effective capacity |
 |---|---|---|
 | lz4 | ~2.0x | ~80 GB |
 | zstd | ~2.5x | ~100 GB |
@@ -186,15 +186,15 @@ The right choice depends on your CPU strength relative to your RAM budget:
 | zstd-5 / zstd-7 | Medium–high | Very good | Strong CPU, limited RAM |
 | zstd-19 | Extremely high | Maximum | Almost never worth it |
 
-If you have a **powerful CPU but limited RAM**, a higher zstd level can meaningfully expand your effective ARC capacity — the CPU pays a small decompression cost at each cache hit, but you fit dramatically more useful data into the available RAM.
+If you have a **powerful CPU but limited RAM**, a higher zstd level can meaningfully expand your effective ARC capacity - the CPU pays a small decompression cost at each cache hit, but you fit dramatically more useful data into the available RAM.
 
-If you have **abundant RAM and a modest CPU**, lz4 is the better trade — fast decompression keeps latency low, and you have enough RAM that the extra ratio improvement from zstd is less critical.
+If you have **abundant RAM and a modest CPU**, lz4 is the better trade - fast decompression keeps latency low, and you have enough RAM that the extra ratio improvement from zstd is less critical.
 
 ---
 
 ## Nordix ZFS Configuration
 
-If you are running [Nordix](https://github.com/nordix), the ZFS tuning described in this document is already handled for you — and then some.
+If you are running [Nordix](https://github.com/nordix), the ZFS tuning described in this document is already handled for you - and then some.
 
 Nordix ships a purpose-built `/etc/modprobe.d/zfs.conf` tuned for high-performance desktop systems on NVMe/SSD storage. Configurations are available for multiple RAM tiers:
 
@@ -239,11 +239,11 @@ This is a legacy optimisation for spinning disks that actively hurts NVMe by con
 
 ### What this means for your VM setup on Nordix
 
-If you are running Nordix and following the VM guidance in this document, you do not need to manually configure compressed ARC or tune ARC bounds — it is already done and optimised for your RAM tier. Your job is simply to:
+If you are running Nordix and following the VM guidance in this document, you do not need to manually configure compressed ARC or tune ARC bounds - it is already done and optimised for your RAM tier. Your job is simply to:
 
 1. Create your zvol with the appropriate `volblocksize` for your guest OS
 2. Set `compression=zstd` on the zvol (or `lz4` if CPU headroom is a concern)
-3. Leave `primarycache=all` (the default) — do not disable it
+3. Leave `primarycache=all` (the default) - do not disable it
 4. Place VM storage on a dedicated pool if possible
 
 The Nordix ZFS config then handles everything underneath transparently.
