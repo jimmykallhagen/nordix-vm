@@ -163,8 +163,8 @@ ZFS compression is off by default in vanilla OpenZFS, but enabling it is almost 
 When `zfs_compressed_arc_enabled=1` is set, the ARC stores blocks in their **compressed form**. Data is only decompressed when an application actually reads it, not when it enters the cache.
 
 ```
-Without compressed ARC:   disk → decompress → ARC (uncompressed)
-With compressed ARC:      disk → ARC (compressed) → decompress on use
+Without compressed ARC:   disk -> decompress → ARC (uncompressed)
+With compressed ARC:      disk -> ARC (compressed) → decompress on use
 ```
 
 This means the ARC can hold **more data for the same amount of RAM**:
@@ -215,7 +215,7 @@ With the 64 GB profile targeting ~37 GB `arc_max` and a typical ~2.5x compressio
 options zfs zfs_arc_max=40055800320   # ~37 GB
 options zfs zfs_arc_min=15000000000   # ~14 GB
 ```
-The minimum prevents cache thrashing — even under heavy application load, at least 14 GB of hot data stays in ARC without being evicted.
+The minimum prevents cache thrashing - even under heavy application load, at least 14 GB of hot data stays in ARC without being evicted.
 
 **I/O parallelism** is tuned for NVMe's multi-queue architecture:
 ```
@@ -265,16 +265,16 @@ The Nordix ZFS config then handles everything underneath transparently.
 
 | Concept | Key insight |
 |---|---|
-| ARC caches blocks, not files | A 50GB VM will never flood your RAM — only accessed blocks are cached |
+| ARC caches blocks, not files | A 50GB VM will never flood your RAM - only accessed blocks are cached |
 | Do not blindly disable primarycache | You lose the precise block-level caching that benefits VMs the most |
-| zvol is a raw block device | ZFS steps out of filesystem role — no recordsize, only volblocksize |
+| zvol is a raw block device | ZFS steps out of filesystem role - no recordsize, only volblocksize |
 | volblocksize = virtual sector size | Match it to the guest OS I/O size to avoid write amplification |
-| Three layers, three block sizes | ashift → volblocksize → guest cluster size should be harmonious |
+| Three layers, three block sizes | ashift -> volblocksize -> guest cluster size should be harmonious |
 | zvol vs image file | zvol gives the guest genuine block semantics; image files add a redundant filesystem layer |
 | Dedicated pool for VMs | Eliminates I/O competition between host and guest workloads |
-| Compressed ARC multiplies capacity | More data fits in the same RAM — CPU pays a small decompression cost per read |
-| Algorithm choice depends on CPU/RAM ratio | More RAM → lz4 is fine. Less RAM, stronger CPU → zstd-5/7 earns its keep |
-| Nordix handles ZFS tuning for you | Compressed ARC, I/O depths, write buffers — all pre-configured per RAM tier |
+| Compressed ARC multiplies capacity | More data fits in the same RAM - CPU pays a small decompression cost per read |
+| Algorithm choice depends on CPU/RAM ratio | More RAM -> lz4 is fine. Less RAM, stronger CPU → zstd-5/7 earns its keep |
+| Nordix handles ZFS tuning for you | Compressed ARC, I/O depths, write buffers - all pre-configured per RAM tier |
 
 ---
 
@@ -300,11 +300,8 @@ cat /sys/module/zfs/parameters/zfs_compressed_arc_enabled
 awk '/^hits/{h=$3} /^misses/{m=$3} END{printf "%.1f%%\n",h/(h+m)*100}' \
   /proc/spl/kstat/zfs/arcstats
 
-# Full ARC summary
-arc_summary
-
 # Monitor I/O per vdev in real time
-zpool iostat -v tank 1
+zpool iostat -v <zpool>
 
 # Pool health check
 zpool status -x
