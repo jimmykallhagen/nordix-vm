@@ -85,6 +85,23 @@ sudo zfs create -V 200G \
       -o secondarycache=none \
       -o checksum=fletcher4 nordix-vm/zvol-win11-32k
 ```
+## NO Microsoft! No telementry here!
+I have used David Bombal's guide for local accont on WIndows11
 
+Dave is a great freedom fighter and always has good content in his videos, I recommend you follow him on his Youtube chanel:
+- [Dave-Bombal]("https://www.youtube.com/@davidbombal")
 
+1. Get yourself a Nordix Virsh template for Windows11 VM Here:
+[AMD]
+[INTEL]
 
+2. No Network
+Disable network for your vm.
+This setup is without Wndows First update, and thats important to step when you setup a good windows11 VM
+you can turn on Network after you installed ReviOS and has turn off Windows uppdates
+
+You can use Nordix Bridge network script to automatic make a good network for your vm 
+[nx-bridge-network]
+
+3. Follow Dave's guide for local account
+- [Loacal-account](https://www.youtube.com/shorts/-NEgqTyRcFU)
