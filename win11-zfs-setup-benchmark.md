@@ -23,7 +23,7 @@ I've run benchmarks on Windows VMs on different block size configurations and wi
 
 ZFS offers very good performance, but this is extremely workload based. So you can't run a banchmark and think that you will have the same performance in addition to your entire system. this is just a demonstration so that you can see the difference between the different blocksize and the difference between primarycache=all vs primarycache=metadata
 
--[ZFS-Windows-Benchmarks](ZFS-Windows-Benchmarks)
+- [**ZFS-Windows-Benchmarks**](ZFS-Windows-Benchmarks)
 
 ---
 
