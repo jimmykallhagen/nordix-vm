@@ -2,6 +2,8 @@
 ### A conceptual guide to understanding how they work together
 
 ---
+[Windows11 ZFS Setup With Benchmarks](/win11-zfs-setup-benchmark.md)
+---
 
 ## The Core Misconception
 
