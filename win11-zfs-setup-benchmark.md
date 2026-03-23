@@ -12,6 +12,8 @@
 
 I've run benchmarks on Windows VMs on different block size configurations and with primarycache=all vs primarycache=metadata.
 
+---
+
 ##**Blocksize**
  - 16k
  - 64k
