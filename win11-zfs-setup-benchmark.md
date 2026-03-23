@@ -1,8 +1,18 @@
 # Windows11 - ZFS - Setup and Benchmark
 
+## License
+
+ * SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0                            
+ * [**Nordix - license**](https://polyformproject.org/licenses/noncommercial/1.0.0) 
+ * Copyright (c) 2025 Jimmy Källhagen                                               
+ * Part of Nordix - https://github.com/jimmykallhagen/Nordix                        
+ * Nordix and Yggdrasil are trademarks of Jimmy Källhagen
+
+---
+
 I've run benchmarks on Windows VMs on different block size configurations and with primarycache=all vs primarycache=metadata.
 
-**Blocksize**
+##**Blocksize**
  - 16k
  - 64k
  - 128k
