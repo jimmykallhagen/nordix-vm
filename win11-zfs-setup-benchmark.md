@@ -20,7 +20,7 @@ The windows machines are set up as follows:
  - ReviOS is installed before Windows itself has time to receive its first update.
  - Windows terlementry - OFF
  - Windows Defendrer - OFF
- - ReviOS "Hacks" ON
+ - ReviOS "Hacks" - ON
 
 This will make the optimal VM setup according to my tests.
 
