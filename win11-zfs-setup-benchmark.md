@@ -103,16 +103,21 @@ I have used David Bombal's guide for local accont on WIndows11
 Dave is a great freedom fighter and always has good content in his videos, I recommend you follow him on his Youtube chanel:
 - [Dave-Bombal]("https://www.youtube.com/@davidbombal")
 
-1. Get yourself a Nordix Virsh template for Windows11 VM Here:
-[AMD]
-[INTEL]
+1. Get yourself a Nordix Virsh template for Windows11 VM
+These are configured with 8 physical cores and 16gb ram, change to suit your own setup
 
-2. No Network
+- [AMD-DDR4-Template](win11-templates/win11-amd-ddr4.xml)
+- [AMD-DDR5-Template](win11-templates/win11-amd-ddr5.xml)
+- [INTEL-DDR4-Template](win11-templates/win11-intel-ddr4.xml)
+- [INTEL-DDR5-Template](win11-templates/win11-intel-ddr5.xml)
+
+
+3. No Network
 Disable network for your vm.
 This setup is without Wndows First update, and thats important to step when you setup a good windows11 VM
-you can turn on Network after you installed ReviOS and has turn off Windows uppdates
+you can turn on network after you installed ReviOS and has turn off Windows uppdates
 
-You can use Nordix Bridge network script to automatic make a good network for your vm 
+You can use Nordix Bridge network script to automatic make a easy and good network for your vm 
 [nx-bridge-network]
 
 3. Follow Dave's guide for local account
