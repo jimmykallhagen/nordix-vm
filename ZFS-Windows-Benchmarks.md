@@ -3,6 +3,13 @@
 ## Benchmarks
 - These VM runs on two WD nvme gen3 i ZFS stripe, with a dedicated zvol for a "real" nvme for the windows to run on
 - These benchmarks is made with DDR5 6000mhz 64gb RAM
+- you can never get a fair benchmark with zfs and ARC
+
+- Write is nothing you can use as an indicator in these kind of benchmarks, wery missleaded
+- Read is real.
+- Read is the key for system performance.
+
+- These benchmars is only to demonstrate the different between the different blocksize and the different between primarycache=all vs primarycache=metadata
 
 ---
 
