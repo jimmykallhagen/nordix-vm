@@ -90,7 +90,7 @@ sudo zfs create -V 200G \
 3. blocksize=128k
 ```bash
 sudo zfs create -V 200G \
-      -o volblocksize=32K \
+      -o volblocksize=128k \
       -o compression=lz4 \
       -o sync=disabled \
       -o redundant_metadata=most \
@@ -102,7 +102,7 @@ sudo zfs create -V 200G \
 ## No Microsoft, We Dont Want telementry here!
 I have used David Bombal's guide for local accont on WIndows11
 
-Dave is a great freedom fighter and always has good content in his videos, I recommend you follow him on his Youtube chanel:
+Dave is a strong advocate for digital privacy and always produces quality content. I recommend you follow him on his Youtube chanel:
 - [Dave-Bombal]("https://www.youtube.com/@davidbombal")
 
 1. Get yourself a Nordix Virsh template for Windows11 VM
