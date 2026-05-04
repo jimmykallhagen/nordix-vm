@@ -1,7 +1,7 @@
 # Nordix VM
 
 - [**ZFS, ARC, zvol and Virtual Machines**](zvol-and-Virtua-Machines.md) - A conceptual ZGuide to understanding how they work together
-- [**Windows11 VM on ZFS, Benchmarks**](ZFS-Windows-Benchmarks.md) - Windows on ZFS: Zvol Test results for different blocksize, and the difference between primarycache=all VS primarycache=metadata
+- [**Windows11 VM on ZFS, Benchmarks**](ZFS-Windows-Benchmarks.md) - Test results for different blocksize, and the difference between primarycache=all VS primarycache=metadata
 - [**ZGuide: Window11 VM on ZFS Zvol**](win11-zfs-setup.md) - Nordix Zguide: Setup windows vm on zfs zvol
 ----
 ## To do project - VM so simple it's impossible to fail 
