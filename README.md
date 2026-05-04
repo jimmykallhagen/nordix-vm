@@ -17,6 +17,7 @@ A guided GUI system, where you only need to enter a few choices
  - What happens behind the scenes is that you apply ready-made optimized virsh templates, that you run nordix tools for bridged network and that you activate ssh
  - checking that the correct services are enabled for libvirt, that this user is in the groups `wheel audio disk input kvm storage video qemu libvirt`
  - A system service that creates a desktop entry for this VM, so that it is added to your display manager, this allows you to start your VM directly at login and then with minimal overhead from the host
+   
 You can also use zfs clones here if you want to create a dedicated dataset to boot for just VM execution, for those who want to run their VMs with gpu passthrough so as not to have to change the standard system's root dataset with virtio driver and lock gpu to vifo, being able to make it a dedicated dataset is then very convenient.
 
 > _Later I also figured out how one could create a very efficient share system between host and VM with zvol and some simple scripts to synchronize data between zvol and share directory, to only sync data if this zvol is not mounted on the guest._
