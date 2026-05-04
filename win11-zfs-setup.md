@@ -1,4 +1,4 @@
-# Windows11 - ZFS - Setup and Benchmark
+# Windows11 - ZFS - Setup
 
 ## License
 
