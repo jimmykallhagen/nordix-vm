@@ -1,4 +1,4 @@
-# Windows11 - ZFS - Setup
+# Nordix Zguide to run fast Windows11 VM on ZFS 
 
 ## License
 
