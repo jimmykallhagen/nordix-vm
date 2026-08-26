@@ -275,7 +275,7 @@ The Nordix ZFS config then handles everything underneath transparently.
 | zvol vs image file | zvol gives the guest genuine block semantics; image files add a redundant filesystem layer |
 | Dedicated pool for VMs | Eliminates I/O competition between host and guest workloads |
 | Compressed ARC multiplies capacity | More data fits in the same RAM - CPU pays a small decompression cost per read |
-| Algorithm choice depends on CPU/RAM ratio | More RAM -> lz4 is fine. Less RAM, stronger CPU → zstd-5/7 earns its keep |
+| Algorithm choice depends on CPU/RAM ratio | More RAM -> lz4 is fine. Less RAM, stronger CPU → zstd-3/5 earns its keep |
 | Nordix handles ZFS tuning for you | Compressed ARC, I/O depths, write buffers - all pre-configured per RAM tier |
 
 ---
