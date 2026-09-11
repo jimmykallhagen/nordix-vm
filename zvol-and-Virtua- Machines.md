@@ -158,7 +158,7 @@ A **dedicated pool or drive** for VM storage gives each workload its own I/O lan
 
 ## Compression, ARC and the CPU Trade-off
 
-ZFS compression is off by default in vanilla OpenZFS, but enabling it is almost always the right choice. The key insight is that compression does not just save disk space — it directly improves performance, because a compressed block is smaller and therefore faster to read from disk and faster to store in ARC.
+ZFS compression is almost always the right choice. The key insight is that compression does not just save disk space — it directly improves performance, because a compressed block is smaller and therefore faster to read from disk and faster to store in ARC.
 
 ### Compressed ARC — multiplying your effective RAM
 
