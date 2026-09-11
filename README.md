@@ -2,7 +2,7 @@
 
 - [**ZFS, ARC, zvol and Virtual Machines**](https://github.com/jimmykallhagen/nordix-vm/blob/main/zvol-and-Virtua-%20Machines.md) - A conceptual ZGuide to understanding how they work together
 - [**Windows11 VM on ZFS, Benchmarks**](ZFS-Windows-Benchmarks.md) - Benchmarks for different blocksize, difference between primarycache=all/metadata
-- [**ZGuide: Window11 VM on ZFS Zvol**](win11-zfs-setup.md) - Nordix Zguide to run fast Windows11 VM on ZFS
+- [**ZGuide: Window11 VM on ZFS Zvol**](https://github.com/jimmykallhagen/nordix-vm/blob/main/nordix-ZGuide-win11-zfs-setup.md) - Nordix Zguide to run fast Windows11 VM on ZFS
 ----
 ## To do project - VM so simple it's impossible to fail 
 
